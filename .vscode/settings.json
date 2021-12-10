@@ -4,5 +4,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "jest.autoRun": "off"
+  "jest.autoRun": "off",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#012F54",
+    "titleBar.activeBackground": "#024175",
+    "titleBar.activeForeground": "#F5FAFF"
+  }
 }
