@@ -1,4 +1,5 @@
 import { Head, BlitzLayout } from "blitz"
+import Logo from "../components/Logo"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
@@ -10,7 +11,7 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
       <div id="layout" className="container">
         <header>
           <nav>
-            <h1>cohortTracker</h1>
+            <Logo />
             <div className="nav-items">
               <a href="blah">blah</a>
               <a href="blah">blah</a>

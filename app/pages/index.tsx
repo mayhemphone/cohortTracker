@@ -3,6 +3,7 @@ import { Link, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
+import Logo from "app/core/components/Logo"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -17,7 +18,7 @@ const UserInfo = () => {
     return (
       <>
         <button
-          className="button small"
+          className="login-link"
           onClick={async () => {
             await logoutMutation()
           }}
@@ -33,11 +34,16 @@ const UserInfo = () => {
     )
   } else {
     return (
-      <div id="welcome">
-        <h1>Welcome!</h1>
-        <p>
-          This is your open-source cohort tracker we&apos;ll use for
-          <span className="italics"> all the things</span>!
+      <div className="center-center">
+        <div id="welcome">
+          <div className="center-center" style={{ marginBottom: "36px" }}>
+            <Logo />
+          </div>
+          <h1>Welcome!</h1>
+          <p>
+            This is your open-source cohort tracker we&apos;ll use for
+            <span className="italics"> all the things</span>!
+          </p>
           <ul>
             <li>downloading lessons</li>
             <li>find and turn in homework</li>
@@ -45,17 +51,17 @@ const UserInfo = () => {
             <li>review zoom recordings</li>
             <li>and probably other things</li>
           </ul>
-        </p>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
+          <Link href={Routes.SignupPage()}>
+            <a className="login-link">
+              <strong>Sign Up</strong>
+            </a>
+          </Link>
+          <Link href={Routes.LoginPage()}>
+            <a className="login-link">
+              <strong>Login</strong>
+            </a>
+          </Link>
+        </div>
       </div>
     )
   }
@@ -63,11 +69,9 @@ const UserInfo = () => {
 
 const Home: BlitzPage = () => {
   return (
-    <div>
-      <Suspense fallback="Loading...">
-        <UserInfo />
-      </Suspense>
-    </div>
+    <Suspense fallback="Loading...">
+      <UserInfo />
+    </Suspense>
   )
 }
 

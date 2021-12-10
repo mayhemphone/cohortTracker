@@ -131,7 +131,7 @@ table {
 
 /* END RESET */
 body {
-  background-color: #ededed;
+  /* background-color: #ededed; */
   font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", "Helvetica Neue", sans-serif;
@@ -174,7 +174,7 @@ p {
   align-items: center;
   justify-content: top;
   min-height: 100vh;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 #layout header {
@@ -182,10 +182,27 @@ p {
 }
 
 #layout header nav {
-  background-color: rgb(0, 145, 255);
+  /* background-color: rgb(0, 145, 255); */
+  background-color: rgb(255, 255, 255);
   padding: 10px;
   display: flex;
   /* outline: 1px solid black; */
+}
+
+.logo {
+  color: rgb(0, 145, 255);
+}
+
+.logo::after {
+  content: " }";
+  color: #333;
+  font-weight: 500;
+}
+
+.logo::before {
+  content: "{ ";
+  color: #333;
+  font-weight: 500;
 }
 
 #layout .nav-items {
@@ -196,16 +213,24 @@ p {
   align-items: baseline;
 }
 #layout .nav-items a {
-  color: #fff;
+  color: rgb(0, 145, 255);
   margin: 10px;
 }
 
 #layout main {
   background-color: #fefefe;
-  border: 1px solid #cdcdcd;
+  /* border: 1px solid #cdcdcd; */
   padding: 20px;
+  flex: 1;
   width: 80%;
   max-width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+#welcome {
+  border: 1px solid #cacaca;
+  border-radius: 8px;
+  padding: 36px 24px;
 }
 
 #welcome h1,
@@ -224,4 +249,28 @@ p {
   /* color: red; */
   color: #333;
   font-style: italic;
+}
+
+.center-center {
+  /* outline: 1px solid red; */
+  /* height: 100%; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#welcome .login-link {
+  color: rgb(0, 145, 255);
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid rgb(0, 145, 255);
+  border-radius: 4px;
+  padding: 6px 10px;
+  text-decoration: none;
+  transition: 100ms ease-in-out;
+}
+
+#welcome .login-link:hover {
+  background-color: #eee;
 }
