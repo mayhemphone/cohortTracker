@@ -19,7 +19,7 @@ model User {
   name           String?
   email          String   @unique
   hashedPassword String?
-  role           RoleType @default(STUDENT)
+  role           String   @default("STUDENT")
 
   tokens   Token[]
   sessions Session[]
