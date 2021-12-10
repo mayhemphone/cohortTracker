@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -19,10 +19,16 @@ model User {
   name           String?
   email          String   @unique
   hashedPassword String?
-  role           String   @default("USER")
+  role           RoleType @default(STUDENT)
 
   tokens   Token[]
   sessions Session[]
+
+  // added
+  instructor Instructor?
+  student    Student?
+  avatar     String?
+
 }
 
 model Session {
@@ -41,13 +47,13 @@ model Session {
 }
 
 model Token {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   hashedToken String
-  type        String
+  // type        String <- default
   // See note below about TokenType enum
-  // type        TokenType
+  type        TokenType
   expiresAt   DateTime
   sentTo      String
 
@@ -57,9 +63,125 @@ model Token {
   @@unique([hashedToken, type])
 }
 
+model Instructor {
+  id Int @id @default(autoincrement())
+
+  // author     User       @relation(fields: [authorId], references: [id])
+
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  firstName   String
+  lastName    String
+  email       String
+  slackHandle String
+  cohorts     Cohort[]
+  lessons     Lesson[]
+  Class       Class?   @relation(fields: [classId], references: [id])
+  classId     Int?
+}
+
+model Cohort {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  slug      String   @unique
+  startDate DateTime
+  endDate   DateTime
+
+  instructors Instructor[]
+  students    Student[]
+
+  classes     Class[]
+  assignments Assignment[]
+  Lesson      Lesson[]
+}
+
+model Student {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  firstName   String
+  lastName    String
+  email       String
+  slackHandle String
+
+  cohorts  Cohort[]
+  classes  Class[]
+  homework Homework[]
+
+}
+
+// student has many homeworks which each point to an assignment
+model Homework {
+  id      Int            @id @default(autoincrement())
+  dueDate DateTime
+  status  HomeworkStatus
+
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignmentId Int        @unique
+  student      Student?   @relation(fields: [studentId], references: [id])
+  studentId    Int?
+}
+
+model Assignment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  number    Int
+  deck      String
+
+  homework Homework?
+  cohorts  Cohort[]
+}
+
+//student has many classes which each point to a lesson
+model Class {
+  id        Int      @id @default(autoincrement())
+  replayUrl String // this depends on the cohort might need to make a model that extends like Assignment
+  date      DateTime
+
+  lesson   Lesson @relation(fields: [lessonId], references: [id])
+  lessonId Int    @unique
+
+  cohorts     Cohort[]
+  instructors Instructor[]
+  students    Student[]
+
+}
+
+model Lesson {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  number    Int
+  deck      String
+
+  classes      Class[]
+  Instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  instructorId Int?
+  Cohort       Cohort?     @relation(fields: [cohortId], references: [id])
+  cohortId     Int?
+}
+
 // NOTE: It's highly recommended to use an enum for the token type
 //       but enums only work in Postgres.
 //       See: https://blitzjs.com/docs/database-overview#switch-to-postgresql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+
+enum TokenType {
+  RESET_PASSWORD
+}
+
+enum HomeworkStatus {
+  COMPLETED
+  INCOMPLETED
+}
+
+enum RoleType {
+  STUDENT
+  INSTRUCTOR
+}
