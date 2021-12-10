@@ -68,17 +68,17 @@ model Instructor {
 
   // author     User       @relation(fields: [authorId], references: [id])
 
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int      @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int       @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   firstName   String
   lastName    String
   email       String
   slackHandle String
   cohorts     Cohort[]
   lessons     Lesson[]
-  Class       Class?   @relation(fields: [classId], references: [id])
+  Workshop    Workshop? @relation(fields: [classId], references: [id])
   classId     Int?
 }
 
@@ -92,7 +92,7 @@ model Cohort {
   instructors Instructor[]
   students    Student[]
 
-  classes     Class[]
+  workshops   Workshop[]
   assignments Assignment[]
   Lesson      Lesson[]
 }
@@ -108,9 +108,9 @@ model Student {
   email       String
   slackHandle String
 
-  cohorts  Cohort[]
-  classes  Class[]
-  homework Homework[]
+  cohorts   Cohort[]
+  workshops Workshop[]
+  homework  Homework[]
 
 }
 
@@ -138,8 +138,8 @@ model Assignment {
   cohorts  Cohort[]
 }
 
-//student has many classes which each point to a lesson
-model Class {
+//student has many workshops which each point to a lesson
+model Workshop {
   id        Int      @id @default(autoincrement())
   replayUrl String // this depends on the cohort might need to make a model that extends like Assignment
   date      DateTime
@@ -161,7 +161,7 @@ model Lesson {
   number    Int
   deck      String
 
-  classes      Class[]
+  workshops    Workshop[]
   Instructor   Instructor? @relation(fields: [instructorId], references: [id])
   instructorId Int?
   Cohort       Cohort?     @relation(fields: [cohortId], references: [id])
