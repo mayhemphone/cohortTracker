@@ -33,7 +33,19 @@ const UserInfo = () => {
     )
   } else {
     return (
-      <>
+      <div id="welcome">
+        <h1>Welcome!</h1>
+        <p>
+          This is your open-source cohort tracker we&apos;ll use for
+          <span className="italics"> all the things</span>!
+          <ul>
+            <li>downloading lessons</li>
+            <li>find and turn in homework</li>
+            <li>get feedback</li>
+            <li>review zoom recordings</li>
+            <li>and probably other things</li>
+          </ul>
+        </p>
         <Link href={Routes.SignupPage()}>
           <a className="button small">
             <strong>Sign Up</strong>
@@ -44,7 +56,7 @@ const UserInfo = () => {
             <strong>Login</strong>
           </a>
         </Link>
-      </>
+      </div>
     )
   }
 }
@@ -52,13 +64,6 @@ const UserInfo = () => {
 const Home: BlitzPage = () => {
   return (
     <div>
-      <h1>Hello, world!</h1>
-      <h2>Hello, world!</h2>
-      <h3>Hello, world!</h3>
-      <h4>Hello, world!</h4>
-      <h5>Hello, world!</h5>
-      <p>Hello, world!</p>
-
       <Suspense fallback="Loading...">
         <UserInfo />
       </Suspense>
