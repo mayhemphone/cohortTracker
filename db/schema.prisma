@@ -115,6 +115,7 @@ model Student {
 }
 
 // student has many homeworks which each point to an assignment
+
 model Homework {
   id      Int            @id @default(autoincrement())
   dueDate DateTime
@@ -139,9 +140,11 @@ model Assignment {
 }
 
 //student has many workshops which each point to a lesson
+
 model Workshop {
   id        Int      @id @default(autoincrement())
-  replayUrl String // this depends on the cohort might need to make a model that extends like Assignment
+  replayUrl String
+  // this depends on the cohort might need to make a model that extends like Assignment
   date      DateTime
 
   lesson   Lesson @relation(fields: [lessonId], references: [id])
