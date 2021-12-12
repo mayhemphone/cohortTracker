@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getStudents from "app/students/queries/getStudents"
+import { Student } from "db"
 
 const ITEMS_PER_PAGE = 100
 
@@ -20,10 +21,10 @@ export const StudentsList = () => {
   return (
     <div>
       <ul>
-        {students.map((student) => (
+        {students.map((student: Student) => (
           <li key={student.id}>
             <Link href={Routes.ShowStudentPage({ studentId: student.id })}>
-              <a>{student.name}</a>
+              <a>{student.firstName}</a>
             </Link>
           </li>
         ))}
