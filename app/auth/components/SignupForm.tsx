@@ -16,6 +16,7 @@ export const SignupForm = (props: SignupFormProps) => {
       <h1>Create an Account</h1>
 
       <Form
+        autoComplete="off"
         submitText="Create Account"
         schema={Signup}
         initialValues={{ email: "", password: "" }}
@@ -33,8 +34,15 @@ export const SignupForm = (props: SignupFormProps) => {
           }
         }}
       >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <LabeledTextField name="name" label="Name" placeholder="Name" autoComplete="off" />
+        <LabeledTextField name="email" label="Email" placeholder="Email" autoComplete="off" />
+        <LabeledTextField
+          name="password"
+          label="Password"
+          placeholder="Password"
+          type="password"
+          autoComplete="off"
+        />
       </Form>
     </div>
   )

@@ -193,6 +193,14 @@ p {
   color: rgb(0, 145, 255);
 }
 
+.background-primary {
+  background-color: rgb(0, 145, 255);
+}
+
+.color-primary {
+  color: rgb(0, 145, 255);
+}
+
 .logo::after {
   content: " }";
   color: #333;

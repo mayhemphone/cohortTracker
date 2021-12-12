@@ -1,5 +1,5 @@
-import { Head, BlitzLayout } from "blitz"
-import Logo from "../components/Logo"
+import { Head, BlitzLayout, useMutation } from "blitz"
+import Nav from "./Nav"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
@@ -10,14 +10,7 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
       </Head>
       <div id="layout" className="container">
         <header>
-          <nav>
-            <Logo />
-            <div className="nav-items">
-              <a href="blah">blah</a>
-              <a href="blah">blah</a>
-              <a href="blah">blah</a>
-            </div>
-          </nav>
+          <Nav />
         </header>
         <main>{children}</main>
       </div>

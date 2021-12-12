@@ -9,5 +9,15 @@ export default async function getCurrentUser(_ = null, { session }: Ctx) {
     select: { id: true, name: true, email: true, role: true },
   })
 
-  return user
+  return user as CurrentUser
+}
+
+export type CurrentUser = {
+  id: number
+  name: string | null
+  // firstName: string | null;
+  // lastName: string | null;
+  email: string
+  role: string
+  avatar: string | null
 }

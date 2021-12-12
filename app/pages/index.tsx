@@ -14,22 +14,36 @@ const UserInfo = () => {
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
 
+  const userDetails =
+    currentUser &&
+    Object.entries(currentUser).map(([key, value]) => (
+      <code key={value} style={{ display: "block" }}>
+        {key}:&emsp;{value}
+      </code>
+    ))
+
   if (currentUser) {
     return (
       <>
-        <button
-          className="login-link"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
+        <h1>Hi, {currentUser.name}</h1>
+
+        <section>
+          <h2>User Profile:</h2>
+          <button
+            className="login-link"
+            onClick={async () => {
+              await logoutMutation()
+            }}
+          >
+            Logout
+          </button>
+          <div>
+            {userDetails}
+            {/* User id: <code>{currentUser.id}</code> */}
+            {/* <br /> */}
+            {/* User role: <code>{currentUser.role}</code> */}
+          </div>
+        </section>
       </>
     )
   } else {
