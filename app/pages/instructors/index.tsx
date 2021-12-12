@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getInstructors from "app/instructors/queries/getInstructors"
+import { Instructor } from "db"
 
 const ITEMS_PER_PAGE = 100
 
@@ -20,10 +21,10 @@ export const InstructorsList = () => {
   return (
     <div>
       <ul>
-        {instructors.map((instructor) => (
+        {instructors.map((instructor: Instructor) => (
           <li key={instructor.id}>
             <Link href={Routes.ShowInstructorPage({ instructorId: instructor.id })}>
-              <a>{instructor.name}</a>
+              <a>{instructor.firstName}</a>
             </Link>
           </li>
         ))}

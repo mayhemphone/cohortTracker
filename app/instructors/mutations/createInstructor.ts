@@ -4,6 +4,11 @@ import { z } from "zod"
 
 const CreateInstructor = z.object({
   name: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  slackHandle: z.string(),
+  user: z.string(),
 })
 
 export default resolver.pipe(
