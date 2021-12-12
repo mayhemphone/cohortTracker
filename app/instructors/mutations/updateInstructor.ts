@@ -4,7 +4,7 @@ import { z } from "zod"
 
 const UpdateInstructor = z.object({
   id: z.number(),
-  name: z.string(),
+  firstName: z.string(),
 })
 
 export default resolver.pipe(
