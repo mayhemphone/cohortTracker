@@ -37,7 +37,7 @@ const UserIcon = ({ user }: UserIconProps) => {
       }}
       className="background-primary"
     >
-      {user.name?.at(0)}
+      {user.firstName?.at(0)}
     </div>
   )
 }

@@ -16,10 +16,12 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String?
+  firstName      String   @default("default")
+  lastName       String   @default("default")
   email          String   @unique
   hashedPassword String?
   role           String   @default("STUDENT")
+  slackHandle    String   @default("default")
 
   tokens   Token[]
   sessions Session[]
@@ -68,18 +70,17 @@ model Instructor {
 
   // author     User       @relation(fields: [authorId], references: [id])
 
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int       @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  firstName   String
-  lastName    String
-  email       String
-  slackHandle String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   cohorts     Cohort[]
   lessons     Lesson[]
-  Workshop    Workshop? @relation(fields: [classId], references: [id])
-  classId     Int?
+  workshops   Workshop[]
+  assignments Assignment[]
+  homework    Homework[]
+
 }
 
 model Cohort {
@@ -94,19 +95,15 @@ model Cohort {
 
   workshops   Workshop[]
   assignments Assignment[]
-  Lesson      Lesson[]
+  lesson      Lesson[]
 }
 
 model Student {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int      @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  firstName   String
-  lastName    String
-  email       String
-  slackHandle String
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   cohorts   Cohort[]
   workshops Workshop[]
@@ -121,10 +118,13 @@ model Homework {
   dueDate DateTime
   status  HomeworkStatus
 
-  assignment   Assignment @relation(fields: [assignmentId], references: [id])
-  assignmentId Int        @unique
-  student      Student?   @relation(fields: [studentId], references: [id])
+  assignment   Assignment  @relation(fields: [assignmentId], references: [id])
+  assignmentId Int         @unique
+  student      Student?    @relation(fields: [studentId], references: [id])
   studentId    Int?
+  instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  instructorId Int?
+
 }
 
 model Assignment {
@@ -135,8 +135,10 @@ model Assignment {
   number    Int
   deck      String
 
-  homework Homework?
-  cohorts  Cohort[]
+  homeworks    Homework[]
+  cohorts      Cohort[]
+  Instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  instructorId Int?
 }
 
 //student has many workshops which each point to a lesson

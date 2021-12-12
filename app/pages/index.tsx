@@ -25,7 +25,7 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <h1>Hi, {currentUser.name}</h1>
+        <h1>Hi, {currentUser.firstName}</h1>
 
         <section>
           <h2>User Profile:</h2>

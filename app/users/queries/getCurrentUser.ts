@@ -6,7 +6,14 @@ export default async function getCurrentUser(_ = null, { session }: Ctx) {
 
   const user = await db.user.findFirst({
     where: { id: session.userId },
-    select: { id: true, name: true, email: true, role: true },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      slackHandle: true,
+      email: true,
+      role: true,
+    },
   })
 
   return user as CurrentUser
@@ -14,10 +21,10 @@ export default async function getCurrentUser(_ = null, { session }: Ctx) {
 
 export type CurrentUser = {
   id: number
-  name: string | null
-  // firstName: string | null;
-  // lastName: string | null;
+  firstName: string
+  lastName: string
+  slackHandle: string
   email: string
-  role: string
+  role: "STUDENT" | "INSTRUCTOR" | "ADMIN"
   avatar: string | null
 }
