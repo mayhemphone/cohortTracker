@@ -24,7 +24,7 @@ export const InstructorsList = () => {
         {instructors.map((instructor: Instructor) => (
           <li key={instructor.id}>
             <Link href={Routes.ShowInstructorPage({ instructorId: instructor.id })}>
-              <a>{instructor.firstName}</a>
+              <a>{instructor.id}</a>
             </Link>
           </li>
         ))}

@@ -24,7 +24,7 @@ export const StudentsList = () => {
         {students.map((student: Student) => (
           <li key={student.id}>
             <Link href={Routes.ShowStudentPage({ studentId: student.id })}>
-              <a>{student.firstName}</a>
+              <a>{student.id}</a>
             </Link>
           </li>
         ))}
