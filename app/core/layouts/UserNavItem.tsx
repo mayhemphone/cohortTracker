@@ -3,7 +3,7 @@ import { useMutation } from "blitz"
 import { useCurrentUser } from "../hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import { User } from "db"
-import { CurrentUser } from "app/users/queries/getCurrentUser"
+import { CurrentUser } from "app/users/queries/returnTypes"
 
 type Props = {}
 

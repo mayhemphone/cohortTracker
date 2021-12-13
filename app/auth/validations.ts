@@ -11,7 +11,16 @@ export const password = z
   .max(100)
   .transform((str) => str.trim())
 
+export const firstName = z.string().transform((str) => str.trim())
+export const lastName = z.string().transform((str) => str.trim())
+export const slackHandle = z.string().transform((str) => str.trim())
+export const role = z.string()
+
 export const Signup = z.object({
+  firstName,
+  lastName,
+  slackHandle,
+  role,
   email,
   password,
 })

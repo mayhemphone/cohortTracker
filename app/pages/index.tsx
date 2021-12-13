@@ -17,7 +17,7 @@ const UserInfo = () => {
   const userDetails =
     currentUser &&
     Object.entries(currentUser).map(([key, value]) => (
-      <code key={value} style={{ display: "block" }}>
+      <code key={key} style={{ display: "block" }}>
         {key}:&emsp;{value}
       </code>
     ))
