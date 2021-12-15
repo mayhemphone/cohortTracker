@@ -15,7 +15,7 @@ export default resolver.pipe(
     const instructor = await db.instructor.update({
       where: { id },
       data,
-      include: { user: { select: { ...standardUserData } } },
+      include: { user: { ...standardUserData } },
     })
 
     return instructor

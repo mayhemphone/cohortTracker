@@ -12,7 +12,7 @@ export default resolver.pipe(resolver.zod(GetInstructor), resolver.authorize(), 
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const instructor = await db.instructor.findFirst({
     where: { id },
-    include: { user: { select: { ...standardUserData } } },
+    include: { user: { ...standardUserData } },
   })
 
   if (!instructor) throw new NotFoundError()

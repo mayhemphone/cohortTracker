@@ -15,6 +15,7 @@ export const firstName = z.string().transform((str) => str.trim())
 export const lastName = z.string().transform((str) => str.trim())
 export const slackHandle = z.string().transform((str) => str.trim())
 export const role = z.string()
+export const cohorts = z.string()
 
 export const Signup = z.object({
   firstName,
@@ -23,6 +24,7 @@ export const Signup = z.object({
   role,
   email,
   password,
+  cohorts,
 })
 
 export const Login = z.object({

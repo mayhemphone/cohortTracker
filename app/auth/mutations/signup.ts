@@ -5,7 +5,7 @@ import { Role } from "types"
 
 export default resolver.pipe(
   resolver.zod(Signup),
-  async ({ email, password, firstName, lastName, slackHandle, role }, ctx) => {
+  async ({ email, password, firstName, lastName, slackHandle, role, cohorts }, ctx) => {
     const hashedPassword = await SecurePassword.hash(password.trim())
 
     const user = await db.user.create({
@@ -34,12 +34,12 @@ export default resolver.pipe(
             connect: { id: user.id },
           },
           cohorts: {
-            connect: [{ id: 1 }],
+            connect: [{ id: parseInt(cohorts) || 1 }],
           },
         },
         select: { id: true, user: true },
       })
-      return student
+      console.log(student)
     } else if (user.role === "INSTRUCTOR") {
       const instructor = await db.instructor.create({
         data: {
@@ -47,12 +47,12 @@ export default resolver.pipe(
             connect: { id: user.id },
           },
           cohorts: {
-            connect: [{ id: 1 }],
+            connect: [{ id: parseInt(cohorts) || 1 }],
           },
         },
         select: { id: true, user: true },
       })
-      return instructor
+      console.log(instructor)
     }
 
     await ctx.session.$create({ userId: user.id, role: user.role as Role })

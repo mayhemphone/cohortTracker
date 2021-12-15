@@ -17,7 +17,7 @@ export default resolver.pipe(
       data,
       include: {
         cohorts: true,
-        user: { select: { ...standardUserData } },
+        user: { ...standardUserData },
       },
     })
 

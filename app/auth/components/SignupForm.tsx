@@ -46,7 +46,7 @@ export const SignupForm = (props: SignupFormProps) => {
           <LabeledRadioField name="role" label="Instructor" value="INSTRUCTOR" />
           <LabeledRadioField name="role" label="Admin" value="ADMIN" />
         </div>
-        <LabeledTextField name="cohort" label="Cohort id" defaultValue="1" />
+        <LabeledTextField name="cohorts" label="Cohort id" defaultValue="1" />
       </Form>
     </div>
   )

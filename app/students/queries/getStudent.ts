@@ -14,7 +14,7 @@ export default resolver.pipe(resolver.zod(GetStudent), resolver.authorize(), asy
     where: { id },
     include: {
       cohorts: true,
-      user: { select: { ...standardUserData } },
+      user: { ...standardUserData },
     },
   })
 
