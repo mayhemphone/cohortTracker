@@ -29,16 +29,26 @@ export default resolver.pipe(
 
     if (user.role === "STUDENT") {
       const student = await db.student.create({
-        data: { userId: user.id },
+        data: {
+          userId: user.id,
+          cohorts: {
+            connect: [{ id: 1 }],
+          },
+        },
         select: { id: true, user: true },
       })
-      console.log({ student })
+      return student
     } else if (user.role === "INSTRUCTOR") {
       const instructor = await db.instructor.create({
-        data: { userId: user.id },
+        data: {
+          userId: user.id,
+          cohorts: {
+            connect: [{ id: 1 }],
+          },
+        },
         select: { id: true, user: true },
       })
-      console.log({ instructor })
+      return instructor
     }
 
     await ctx.session.$create({ userId: user.id, role: user.role as Role })

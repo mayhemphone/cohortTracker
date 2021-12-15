@@ -17,7 +17,20 @@ export default resolver.pipe(
       skip,
       take,
       count: () => db.instructor.count({ where }),
-      query: (paginateArgs) => db.instructor.findMany({ ...paginateArgs, where, orderBy }),
+      query: (paginateArgs) =>
+        db.instructor.findMany({
+          ...paginateArgs,
+          where,
+          orderBy,
+          include: {
+            user: { select: { firstName: true, lastName: true, email: true, slackHandle: true } },
+            cohorts: true,
+            lessons: true,
+            workshops: true,
+            assignments: true,
+            homework: true,
+          },
+        }),
     })
 
     return {

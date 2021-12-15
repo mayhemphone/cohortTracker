@@ -1,4 +1,4 @@
-import { useMutation } from "blitz"
+import { useMutation, useQuery } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import signup from "app/auth/mutations/signup"
@@ -46,6 +46,7 @@ export const SignupForm = (props: SignupFormProps) => {
           <LabeledRadioField name="role" label="Instructor" value="INSTRUCTOR" />
           <LabeledRadioField name="role" label="Admin" value="ADMIN" />
         </div>
+        <LabeledTextField name="cohort" label="Cohort id" defaultValue="1" />
       </Form>
     </div>
   )

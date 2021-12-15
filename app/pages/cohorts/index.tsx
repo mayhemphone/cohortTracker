@@ -1,36 +1,29 @@
 import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getStudents from "app/students/queries/getStudents"
-import { Student, User } from "db"
+import getCohorts from "app/cohorts/queries/getCohorts"
 
 const ITEMS_PER_PAGE = 100
 
-type FullStudent = Student & {
-  user?: User
-}
-
-export const StudentsList = () => {
+export const CohortsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ students, hasMore }] = usePaginatedQuery(getStudents, {
+  const [{ cohorts, hasMore }] = usePaginatedQuery(getCohorts, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
-  console.log({ students })
+
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
   return (
     <div>
       <ul>
-        {students.map((student: FullStudent) => (
-          <li key={student.id}>
-            <Link href={Routes.ShowStudentPage({ studentId: student.id })}>
-              <a>
-                {student.user?.firstName} {student.user?.lastName}
-              </a>
+        {cohorts.map((cohort) => (
+          <li key={cohort.id}>
+            <Link href={Routes.ShowCohortPage({ cohortId: cohort.id })}>
+              <a>{cohort.name}</a>
             </Link>
           </li>
         ))}
@@ -46,29 +39,29 @@ export const StudentsList = () => {
   )
 }
 
-const StudentsPage: BlitzPage = () => {
+const CohortsPage: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>Students</title>
+        <title>Cohorts</title>
       </Head>
 
       <div>
         <p>
-          <Link href={Routes.NewStudentPage()}>
-            <a>Create Student</a>
+          <Link href={Routes.NewCohortPage()}>
+            <a>Create Cohort</a>
           </Link>
         </p>
 
         <Suspense fallback={<div>Loading...</div>}>
-          <StudentsList />
+          <CohortsList />
         </Suspense>
       </div>
     </>
   )
 }
 
-StudentsPage.authenticate = true
-StudentsPage.getLayout = (page) => <Layout>{page}</Layout>
+CohortsPage.authenticate = true
+CohortsPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default StudentsPage
+export default CohortsPage

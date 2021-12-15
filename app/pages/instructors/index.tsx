@@ -17,14 +17,16 @@ export const InstructorsList = () => {
 
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
-
+  console.log({ instructors })
   return (
     <div>
       <ul>
         {instructors.map((instructor: Instructor) => (
           <li key={instructor.id}>
             <Link href={Routes.ShowInstructorPage({ instructorId: instructor.id })}>
-              <a>{instructor.id}</a>
+              <a>
+                {instructor.user.firstName} {instructor.user.lastName}
+              </a>
             </Link>
           </li>
         ))}

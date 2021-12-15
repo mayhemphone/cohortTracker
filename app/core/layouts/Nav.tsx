@@ -1,7 +1,7 @@
 import React from "react"
 import Logo from "../components/Logo"
 import UserNavItem from "./UserNavItem"
-// import { Suspense } from "react"
+import { Suspense } from "react"
 import { Link, Routes } from "blitz"
 
 type Props = {}
@@ -21,9 +21,12 @@ const Nav = ({}: Props) => {
         <Link href={Routes.InstructorsPage()}>
           <a>Instructors</a>
         </Link>
-        {/* <Suspense fallback="Loading...">
+        <Link href={Routes.CohortsPage()}>
+          <a>Cohorts</a>
+        </Link>
+        <Suspense fallback="Loading...">
           <UserNavItem />
-        </Suspense> */}
+        </Suspense>
       </div>
     </nav>
   )
