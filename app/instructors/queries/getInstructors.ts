@@ -1,3 +1,4 @@
+import { standardUserData } from "app/core/helpers"
 import { paginate, resolver } from "blitz"
 import db, { Prisma } from "db"
 
@@ -23,7 +24,7 @@ export default resolver.pipe(
           where,
           orderBy,
           include: {
-            user: { select: { firstName: true, lastName: true, email: true, slackHandle: true } },
+            user: { ...standardUserData },
             cohorts: true,
             lessons: true,
             workshops: true,

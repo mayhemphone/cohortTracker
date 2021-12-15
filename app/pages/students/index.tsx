@@ -3,12 +3,9 @@ import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "bli
 import Layout from "app/core/layouts/Layout"
 import getStudents from "app/students/queries/getStudents"
 import { Student, User } from "db"
+import { FullStudent } from "app/users/queries/returnTypes"
 
 const ITEMS_PER_PAGE = 100
-
-type FullStudent = Student & {
-  user?: User
-}
 
 export const StudentsList = () => {
   const router = useRouter()

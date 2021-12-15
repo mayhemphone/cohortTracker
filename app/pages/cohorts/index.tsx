@@ -16,7 +16,7 @@ export const CohortsList = () => {
 
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
-
+  console.log({ cohorts })
   return (
     <div>
       <ul>

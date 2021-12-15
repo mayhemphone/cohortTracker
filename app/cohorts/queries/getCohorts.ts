@@ -1,3 +1,4 @@
+import { standardUserData } from "app/core/helpers"
 import { paginate, resolver } from "blitz"
 import db, { Prisma } from "db"
 
@@ -17,7 +18,20 @@ export default resolver.pipe(
       skip,
       take,
       count: () => db.cohort.count({ where }),
-      query: (paginateArgs) => db.cohort.findMany({ ...paginateArgs, where, orderBy }),
+      query: (paginateArgs) =>
+        db.cohort.findMany({
+          ...paginateArgs,
+          where,
+          orderBy,
+          include: {
+            students: {
+              include: {
+                user: { ...standardUserData },
+              },
+            },
+            instructors: true,
+          },
+        }),
     })
 
     return {

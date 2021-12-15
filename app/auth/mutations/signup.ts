@@ -30,7 +30,9 @@ export default resolver.pipe(
     if (user.role === "STUDENT") {
       const student = await db.student.create({
         data: {
-          userId: user.id,
+          user: {
+            connect: { id: user.id },
+          },
           cohorts: {
             connect: [{ id: 1 }],
           },
@@ -41,7 +43,9 @@ export default resolver.pipe(
     } else if (user.role === "INSTRUCTOR") {
       const instructor = await db.instructor.create({
         data: {
-          userId: user.id,
+          user: {
+            connect: { id: user.id },
+          },
           cohorts: {
             connect: [{ id: 1 }],
           },

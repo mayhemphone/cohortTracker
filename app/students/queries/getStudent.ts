@@ -12,6 +12,7 @@ export default resolver.pipe(resolver.zod(GetStudent), resolver.authorize(), asy
   const student = await db.student.findFirst({
     where: { id },
     include: {
+      cohorts: true,
       user: {
         select: {
           firstName: true,

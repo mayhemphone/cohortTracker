@@ -3,6 +3,7 @@ import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "bli
 import Layout from "app/core/layouts/Layout"
 import getInstructors from "app/instructors/queries/getInstructors"
 import { Instructor } from "db"
+import { FullInstructor } from "app/users/queries/returnTypes"
 
 const ITEMS_PER_PAGE = 100
 
@@ -21,11 +22,11 @@ export const InstructorsList = () => {
   return (
     <div>
       <ul>
-        {instructors.map((instructor: Instructor) => (
+        {instructors.map((instructor: FullInstructor) => (
           <li key={instructor.id}>
             <Link href={Routes.ShowInstructorPage({ instructorId: instructor.id })}>
               <a>
-                {instructor.user.firstName} {instructor.user.lastName}
+                {instructor.user?.firstName} {instructor.user?.lastName}
               </a>
             </Link>
           </li>
