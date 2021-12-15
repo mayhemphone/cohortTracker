@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Test" ALTER COLUMN "count" DROP NOT NULL,
+ALTER COLUMN "count" SET DEFAULT 0;

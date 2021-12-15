@@ -1,8 +1,9 @@
-import { useMutation } from "blitz"
+import { useMutation, useQuery } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import signup from "app/auth/mutations/signup"
 import { Signup } from "app/auth/validations"
+import LabeledRadioField from "app/core/components/LabeledRadioField"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -16,10 +17,12 @@ export const SignupForm = (props: SignupFormProps) => {
       <h1>Create an Account</h1>
 
       <Form
+        autoComplete="off"
         submitText="Create Account"
         schema={Signup}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "", password: "", slackHandle: "@" }}
         onSubmit={async (values) => {
+          console.log("onsubmit", values)
           try {
             await signupMutation(values)
             props.onSuccess?.()
@@ -33,8 +36,17 @@ export const SignupForm = (props: SignupFormProps) => {
           }
         }}
       >
+        <LabeledTextField name="firstName" label="First name" placeholder="First Name" />
+        <LabeledTextField name="lastName" label="Last name" placeholder="Last name" />
+        <LabeledTextField name="slackHandle" label="Slack handle" placeholder="Slack handle" />
         <LabeledTextField name="email" label="Email" placeholder="Email" />
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <div>
+          <LabeledRadioField name="role" label="Student" value="STUDENT" />
+          <LabeledRadioField name="role" label="Instructor" value="INSTRUCTOR" />
+          <LabeledRadioField name="role" label="Admin" value="ADMIN" />
+        </div>
+        <LabeledTextField name="cohorts" label="Cohort id" defaultValue="1" />
       </Form>
     </div>
   )

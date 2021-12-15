@@ -1,18 +1,16 @@
 import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef } from "react"
 import { useFormContext } from "react-hook-form"
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+export interface LabeledCheckboxFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
   /** Field name. */
   name: string
   /** Field label. */
   label: string
-  /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: "text" | "password" | "email" | "number"
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
   labelProps?: ComponentPropsWithoutRef<"label">
 }
 
-export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
+export const LabeledCheckboxField = forwardRef<HTMLInputElement, LabeledCheckboxFieldProps>(
   ({ label, outerProps, labelProps, name, ...props }, ref) => {
     const {
       register,
@@ -23,11 +21,11 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       : errors[name]?.message || errors[name]
 
     return (
-      <div {...outerProps}>
-        <label {...labelProps}>
+      <div {...outerProps} className="container">
+        <label {...labelProps} htmlFor={name}>
           {label}
-          <input disabled={isSubmitting} {...register(name)} {...props} />
         </label>
+        <input id={name} disabled={isSubmitting} {...register(name)} {...props} type="checkbox" />
 
         {error && (
           <div role="alert" style={{ color: "red" }}>
@@ -36,20 +34,17 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
         )}
 
         <style jsx>{`
+          .container {
+            display: inline-block;
+          }
+
           label {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
             font-size: 1rem;
           }
           input {
             font-size: 1rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 3px;
-            border: 1px solid purple;
-            appearance: none;
             margin-top: 0.5rem;
-            width: 100%;
+            margin-right: 20px;
           }
         `}</style>
       </div>
@@ -57,4 +52,4 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
   }
 )
 
-export default LabeledTextField
+export default LabeledCheckboxField
