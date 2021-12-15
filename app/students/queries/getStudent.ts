@@ -1,3 +1,4 @@
+import { standardUserData } from "app/core/helpers"
 import { resolver, NotFoundError } from "blitz"
 import db from "db"
 import { z } from "zod"
@@ -13,14 +14,7 @@ export default resolver.pipe(resolver.zod(GetStudent), resolver.authorize(), asy
     where: { id },
     include: {
       cohorts: true,
-      user: {
-        select: {
-          firstName: true,
-          lastName: true,
-          email: true,
-          slackHandle: true,
-        },
-      },
+      user: { select: { ...standardUserData } },
     },
   })
 

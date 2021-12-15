@@ -1,3 +1,4 @@
+import { standardUserData } from "app/core/helpers"
 import { resolver } from "blitz"
 import db from "db"
 import { z } from "zod"
@@ -11,7 +12,11 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ id, ...data }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const instructor = await db.instructor.update({ where: { id }, data })
+    const instructor = await db.instructor.update({
+      where: { id },
+      data,
+      include: { user: { select: { ...standardUserData } } },
+    })
 
     return instructor
   }

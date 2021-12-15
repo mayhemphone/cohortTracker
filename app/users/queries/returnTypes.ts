@@ -10,10 +10,17 @@ export type CurrentUser = {
   avatar: string | null
 }
 
+export type StandardUserData = {
+  firstName: string
+  lastName: string
+  email: string
+  slackHandle: string
+}
+
 export type FullStudent = Student & {
-  user?: User
+  user?: StandardUserData
 }
 
 export type FullInstructor = Instructor & {
-  user?: User
+  user?: StandardUserData
 }
