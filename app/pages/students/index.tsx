@@ -2,7 +2,6 @@ import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getStudents from "app/students/queries/getStudents"
-import { Student, User } from "db"
 import { FullStudent } from "app/users/queries/returnTypes"
 
 const ITEMS_PER_PAGE = 100
